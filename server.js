@@ -14,9 +14,11 @@ const isDev = process.env.NODE_ENV !== 'production';
 const app = next({ dev: isDev });
 const handle = app.getRequestHandler();
 
-const FRAMES = ['https://tuoitrevietnam.vn/avatar/img/ava1.png'];
+const FRAMES = [
+  'https://khunghinh.net/img/frame/2022/07/23/xykTDf8gHd1658594381.png',
+];
 const DEFAULT_IMGS = [
-  'https://video-thumbs-ext.mediacdn.vn/thumb_w/650/2019/5/6/minh-nghi-15571602825331833982918.png'
+  'https://video-thumbs-ext.mediacdn.vn/thumb_w/650/2019/5/6/minh-nghi-15571602825331833982918.png',
 ];
 
 app
@@ -36,10 +38,10 @@ app
       return handle(req, res);
     });
 
-    io.on('connection', socket => {
+    io.on('connection', (socket) => {
       console.log('A user connected.');
 
-      socket.on('requestInitialData', id => {
+      socket.on('requestInitialData', (id) => {
         const framePhotoURL = FRAMES[id] || '';
         const defaultPhotoURL = DEFAULT_IMGS[id] || '';
 
@@ -74,14 +76,14 @@ app
       });
     });
 
-    httpServer.listen(PORT, err => {
+    httpServer.listen(PORT, (err) => {
       if (err) throw err;
       console.log(`Server run on port ${PORT}.`);
     });
   })
-  .catch(err => {
+  .catch((err) => {
     console.log(err.stack);
     process.exit(1);
   });
 
-process.on('unhandledRejection', err => console.log(err));
+process.on('unhandledRejection', (err) => console.log(err));
